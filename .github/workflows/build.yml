@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Lancer la compilation (Sans signature)
         run: |
@@ -18,7 +18,7 @@ jobs:
           zip -r OpenCallBlock.ipa Payload
           
       - name: Uploader l'IPA
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: App-AntiDemarchage
           path: OpenCallBlock.ipa
