@@ -1,0 +1,24 @@
+name: Build iOS App
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Lancer la compilation (Sans signature)
+        run: |
+          xcodebuild clean build -project OpenCallBlock.xcodeproj -scheme OpenCallBlock -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -derivedDataPath build
+          
+      - name: Packager en .ipa
+        run: |
+          mkdir -p Payload
+          cp -r build/Build/Products/Release-iphoneos/OpenCallBlock.app Payload/
+          zip -r OpenCallBlock.ipa Payload
+          
+      - name: Uploader l'IPA
+        uses: actions/upload-artifact@v3
+        with:
+          name: App-AntiDemarchage
+          path: OpenCallBlock.ipa
