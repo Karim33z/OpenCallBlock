@@ -3,13 +3,13 @@ on: [push]
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
       
-      - name: Lancer la compilation (Sans signature)
+      - name: Lancer la compilation (Sans signature absolue)
         run: |
-          xcodebuild clean build -project OpenCallBlock.xcodeproj -scheme OpenCallBlock -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -derivedDataPath build
+          xcodebuild clean build -project OpenCallBlock.xcodeproj -scheme OpenCallBlock -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -derivedDataPath build
           
       - name: Packager en .ipa
         run: |
